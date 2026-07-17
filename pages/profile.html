@@ -5,6 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>校園外送｜會員中心</title>
     <link rel="stylesheet" href="../css/base.css" />
+    <style>
+      .profile-container {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 24px;
+        margin: 24px 0;
+      }
+      .profile-sidebar {
+        background: #ffffff;
+        border: 1px solid #d7dee8;
+        border-radius: 12px;
+        padding: 24px;
+        text-align: center;
+        height: fit-content;
+      }
+      .avatar {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        margin: 0 auto 16px;
+        border: 3px solid #2e7d61;
+      }
+      .profile-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0 0 6px 0;
+        color: #263545;
+      }
+      .student-id {
+        font-size: 13px;
+        color: #5d6b79;
+        margin: 0;
+      }
+      .profile-main {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .profile-section {
+        background: #ffffff;
+        border: 1px solid #d7dee8;
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .section-title {
+        margin-top: 0;
+        font-size: 16px;
+        color: #263545;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 10px;
+        margin-bottom: 16px;
+      }
+      .profile-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+      .profile-field:last-child {
+        margin-bottom: 0;
+      }
+      .field-label {
+        font-size: 12px;
+        font-weight: bold;
+        color: #5d6b79;
+        text-transform: uppercase;
+      }
+      .field-value {
+        font-size: 15px;
+        color: #263545;
+        background: #f7f8fa;
+        padding: 10px 12px;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+      }
+      @media (max-width: 768px) {
+        .profile-container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
     <header class="site-header">
@@ -12,10 +98,51 @@
       <nav aria-label="主要導覽"><a href="contact.html">聯絡我們</a><a href="order-status.html">訂單狀態</a><a href="../index.html">首頁</a></nav>
     </header>
     <main class="container">
-      <section class="page-heading"><p class="eyebrow">會員中心</p><h1>你好，王同學</h1><p class="muted">這裡提供使用者資料與客服聯絡資訊。</p></section>
-      <!-- 成員 6：完成會員資料區塊；聯絡資訊請在 contact.html 完成。 -->
-      <section class="placeholder"><h2>會員資料</h2><p>待完成：顯示姓名、常用地址與常用付款方式。</p></section>
+      <section class="page-heading">
+        <p class="eyebrow">個人資訊</p>
+        <h1>會員中心</h1>
+        <p class="muted">這裡提供使用者基本資料與預設配送選項。</p>
+      </section>
+      
+      <div class="profile-container">
+        <!-- Sidebar info -->
+        <aside class="profile-sidebar">
+          <div class="avatar">🎓</div>
+          <p class="profile-name">王大同</p>
+          <p class="student-id">學號：B11003022</p>
+        </aside>
+        
+        <!-- Main Info cards -->
+        <div class="profile-main">
+          <!-- Section 1: 基本資料 -->
+          <section class="profile-section">
+            <h3 class="section-title">帳戶基本資料</h3>
+            <div class="profile-field">
+              <span class="field-label">聯絡電話</span>
+              <span class="field-value">0987-654-321</span>
+            </div>
+            <div class="profile-field">
+              <span class="field-label">電子信箱</span>
+              <span class="field-value">wang.student@univ.edu.tw</span>
+            </div>
+          </section>
+          
+          <!-- Section 2: 常用配送資訊 -->
+          <section class="profile-section">
+            <h3 class="section-title">預設配送資訊</h3>
+            <div class="profile-field">
+              <span class="field-label">預設外送地址</span>
+              <span class="field-value">校園綜合教學大樓 3 樓 A302 研討室</span>
+            </div>
+            <div class="profile-field">
+              <span class="field-label">常用付款方式</span>
+              <span class="field-value">LINE Pay (已綁定 - 尾碼 88)</span>
+            </div>
+          </section>
+        </div>
+      </div>
     </main>
-    <footer>校園外送小組協作練習</footer><script src="../js/app.js"></script>
+    <footer>校園外送小組協作練習</footer>
+    <script src="../js/app.js"></script>
   </body>
 </html>
