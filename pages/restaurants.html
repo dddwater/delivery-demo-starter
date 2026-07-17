@@ -1,21 +1,337 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>校園外送｜餐廳</title>
-    <link rel="stylesheet" href="../css/base.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <a class="brand" href="../index.html">校園外送</a>
-      <nav aria-label="主要導覽"><a href="../index.html">首頁</a><a href="menu.html">菜單</a><a href="cart.html">購物車 <span data-cart-count>0</span></a></nav>
-    </header>
-    <main class="container">
-      <section class="page-heading"><p class="eyebrow">選擇餐廳</p><h1>附近餐廳</h1><p class="muted">選一間餐廳，再查看它的菜單。</p></section>
-      <!-- 成員 2：將此區塊改為至少三張餐廳卡片。 -->
-      <section class="placeholder"><h2>餐廳列表</h2><p>待完成：新增餐廳名稱、類型、營業時間與前往菜單按鈕。</p></section>
-    </main>
-    <footer>校園外送小組協作練習</footer><script src="../js/app.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="瀏覽校園快送合作餐廳、料理類型及營業時間。">
+  <title>合作餐廳｜校園快送</title>
+  <style>
+    :root {
+      --primary: #ff6b35;
+      --primary-dark: #e85624;
+      --secondary: #fff4ed;
+      --text: #2f2f35;
+      --muted: #6f7078;
+      --surface: #ffffff;
+      --border: #ececf1;
+      --shadow: 0 14px 35px rgba(41, 34, 30, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      color: var(--text);
+      background: #fffaf7;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current="page"] {
+      color: var(--primary);
+    }
+
+    .page-hero {
+      padding: 74px 0 48px;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(255, 107, 53, 0.17), transparent 28%),
+        linear-gradient(135deg, #fffaf7, #fff1e7);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      color: var(--primary-dark);
+      background: #ffe2d3;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.15;
+    }
+
+    .page-hero p {
+      max-width: 650px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    main > section:last-child {
+      padding: 56px 0 90px;
+    }
+
+    .restaurant-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .restaurant-card {
+      display: flex;
+      overflow: hidden;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--surface);
+      box-shadow: 0 9px 28px rgba(31, 31, 40, 0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .restaurant-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .restaurant-image {
+      display: grid;
+      place-items: center;
+      min-height: 190px;
+      background: linear-gradient(135deg, #fff1e7, #ffe0cf);
+      font-size: 5rem;
+    }
+
+    .restaurant-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      padding: 25px;
+    }
+
+    .tag {
+      align-self: flex-start;
+      margin-bottom: 12px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: var(--primary-dark);
+      background: var(--secondary);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .restaurant-card h2 {
+      margin: 0 0 8px;
+      font-size: 1.45rem;
+    }
+
+    .description {
+      margin: 0 0 18px;
+      color: var(--muted);
+    }
+
+    .details {
+      display: grid;
+      gap: 9px;
+      margin: 0 0 22px;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+    }
+
+    .details strong {
+      color: var(--text);
+    }
+
+    .menu-link {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      margin-top: auto;
+      border-radius: 14px;
+      color: white;
+      background: var(--primary);
+      font-weight: 800;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .menu-link:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .notice {
+      margin-top: 32px;
+      padding: 20px 22px;
+      border: 1px dashed #ffc3a7;
+      border-radius: 18px;
+      color: #7e4a33;
+      background: #fff5ef;
+    }
+
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      background: white;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .restaurant-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      nav {
+        padding: 14px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        width: 100%;
+        gap: 14px;
+        overflow-x: auto;
+      }
+
+      .page-hero {
+        padding: 50px 0 38px;
+      }
+
+      .restaurant-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container" aria-label="主要導覽">
+      <a class="logo" href="../index.html">🍱 校園快送</a>
+      <div class="nav-links">
+        <a href="../index.html">首頁</a>
+        <a href="restaurants.html" aria-current="page">合作餐廳</a>
+        <a href="cart.html">購物車</a>
+        <a href="order-status.html">訂單進度</a>
+        <a href="profile.html">會員中心</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">合作店家</span>
+        <h1>今天想吃哪一家？</h1>
+        <p>瀏覽校園周邊餐廳的料理類型與營業資訊，選好後即可前往菜單頁。</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="restaurant-grid">
+          <article class="restaurant-card">
+            <div class="restaurant-image" aria-hidden="true">🥪</div>
+            <div class="restaurant-content">
+              <span class="tag">早餐・輕食</span>
+              <h2>校園早餐屋</h2>
+              <p class="description">提供現做蛋餅、吐司與漢堡，適合上課前快速補充活力。</p>
+              <ul class="details">
+                <li><strong>餐廳類型：</strong>早餐、蛋餅、吐司</li>
+                <li><strong>營業時間：</strong>06:30－13:30</li>
+              </ul>
+              <a class="menu-link" href="menu.html">查看菜單</a>
+            </div>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-image" aria-hidden="true">🍱</div>
+            <div class="restaurant-content">
+              <span class="tag">台式料理</span>
+              <h2>好食便當</h2>
+              <p class="description">每日準備多款主菜與配菜，適合想吃得飽又均衡的學生。</p>
+              <ul class="details">
+                <li><strong>餐廳類型：</strong>便當、台式料理</li>
+                <li><strong>營業時間：</strong>10:30－20:00</li>
+              </ul>
+              <a class="menu-link" href="menu.html">查看菜單</a>
+            </div>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-image" aria-hidden="true">🍝</div>
+            <div class="restaurant-content">
+              <span class="tag">義式料理</span>
+              <h2>義起吃麵</h2>
+              <p class="description">供應義大利麵、燉飯與焗烤，適合與同學一起享用。</p>
+              <ul class="details">
+                <li><strong>餐廳類型：</strong>義大利麵、焗烤</li>
+                <li><strong>營業時間：</strong>11:00－21:00</li>
+              </ul>
+              <a class="menu-link" href="menu.html">查看菜單</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="notice">
+          本頁為課堂靜態網站原型，餐廳名稱、資訊與訂單功能皆為示範用途。
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      校園外送前台原型｜小組 Git 協作練習
+    </div>
+  </footer>
+</body>
 </html>
