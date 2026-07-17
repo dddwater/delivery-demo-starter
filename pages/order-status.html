@@ -5,6 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>校園外送｜訂單狀態</title>
     <link rel="stylesheet" href="../css/base.css" />
+    <style>
+      .steps-container {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin: 24px 0;
+      }
+      .step {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        position: relative;
+      }
+      .step:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 32px;
+        bottom: -16px;
+        width: 2px;
+        background: #d7dee8;
+      }
+      .step.completed:not(:last-child)::after {
+        background: #2e7d61;
+      }
+      .step-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        z-index: 1;
+        flex-shrink: 0;
+      }
+      .step.completed .step-icon {
+        background: #2e7d61;
+        color: #fff;
+      }
+      .step.active .step-icon {
+        background: #3b82f6;
+        color: #fff;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+      .step-content {
+        display: flex;
+        flex-direction: column;
+      }
+      .step-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0;
+        color: #263545;
+      }
+      .step.active .step-title {
+        color: #3b82f6;
+      }
+      .step-desc {
+        font-size: 14px;
+        color: #5d6b79;
+        margin: 4px 0 0 0;
+      }
+      .order-info-card {
+        background: #ffffff;
+        border: 1px solid #d7dee8;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 32px;
+      }
+      .order-info-title {
+        margin-top: 0;
+        font-size: 18px;
+        color: #263545;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 10px;
+      }
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+        font-size: 14px;
+      }
+      .info-label {
+        color: #5d6b79;
+      }
+      .info-value {
+        font-weight: 600;
+        color: #263545;
+      }
+    </style>
   </head>
   <body>
     <header class="site-header">
@@ -12,10 +110,74 @@
       <nav aria-label="主要導覽"><a href="cart.html">購物車</a><a href="profile.html">會員中心</a><a href="../index.html">首頁</a></nav>
     </header>
     <main class="container">
-      <section class="page-heading"><p class="eyebrow">外送進度</p><h1>訂單狀態</h1><p class="muted">使用模擬資料呈現目前的配送進度。</p></section>
-      <!-- 成員 5：將此區塊改為至少三個訂單進度步驟。 -->
-      <section class="placeholder"><h2>目前進度</h2><p>待完成：顯示「店家接單」、「餐點製作中」、「外送途中」等狀態。</p></section>
+      <section class="page-heading">
+        <p class="eyebrow">外送進度</p>
+        <h1>訂單狀態</h1>
+        <p class="muted">使用模擬資料呈現目前的配送進度。</p>
+      </section>
+      
+      <section class="card">
+        <h2>配送進度</h2>
+        <div class="steps-container">
+          <!-- Step 1: 店家接單 -->
+          <div class="step completed">
+            <div class="step-icon">✓</div>
+            <div class="step-content">
+              <p class="step-title">店家已接單</p>
+              <p class="step-desc">店家已確認您的訂單，開始製作餐點。</p>
+            </div>
+          </div>
+          
+          <!-- Step 2: 餐點製作中 -->
+          <div class="step completed">
+            <div class="step-icon">✓</div>
+            <div class="step-content">
+              <p class="step-title">餐點製作中</p>
+              <p class="step-desc">美味餐點烹調中，完成後將交給外送員。</p>
+            </div>
+          </div>
+          
+          <!-- Step 3: 外送途中 -->
+          <div class="step active">
+            <div class="step-icon">🚴</div>
+            <div class="step-content">
+              <p class="step-title">外送員配送中 (目前狀態)</p>
+              <p class="step-desc">外送夥伴已取餐，正騎車前往您的指定地點。</p>
+            </div>
+          </div>
+          
+          <!-- Step 4: 送達目的地 -->
+          <div class="step">
+            <div class="step-icon">🏁</div>
+            <div class="step-content">
+              <p class="step-title">抵達目的地</p>
+              <p class="step-desc">外送員送達並與您聯絡取餐。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="order-info-card">
+        <h3 class="order-info-title">配送詳細資訊</h3>
+        <div class="info-row">
+          <span class="info-label">外送夥伴</span>
+          <span class="info-value">張小明 🚴</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">聯絡電話</span>
+          <span class="info-value">0912-345-678</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">預估抵達時間</span>
+          <span class="info-value" style="color: #3b82f6;">12:35 (約 10 分鐘後)</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">外送地址</span>
+          <span class="info-value">校園綜合教學大樓 3 樓 A302 研討室</span>
+        </div>
+      </section>
     </main>
-    <footer>校園外送小組協作練習</footer><script src="../js/app.js"></script>
+    <footer>校園外送小組協作練習</footer>
+    <script src="../js/app.js"></script>
   </body>
 </html>
