@@ -3,19 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>校園外送｜購物車</title>
+    <title>購物車摘要｜好食快送</title>
     <link rel="stylesheet" href="../css/base.css" />
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="../index.html">校園外送</a>
-      <nav aria-label="主要導覽"><a href="menu.html">菜單</a><a href="order-status.html">訂單狀態</a><a href="../index.html">首頁</a></nav>
+      <a class="brand" href="../index.html" aria-label="好食快送首頁">好食快送</a>
+      <nav aria-label="主要導覽">
+        <a href="menu.html">瀏覽餐點</a>
+        <a class="nav-cart" href="cart.html" aria-current="page">購物車 <span>2</span></a>
+        <a href="order-status.html">訂單狀態</a>
+      </nav>
     </header>
-    <main class="container">
-      <section class="page-heading"><p class="eyebrow">訂單確認</p><h1>購物車</h1><p class="muted">這是前台原型，不會真的送出訂單。</p></section>
-      <!-- 成員 4：將此區塊改為購物車摘要、總金額與模擬下單按鈕。 -->
-      <section class="placeholder"><h2>購物車摘要</h2><p>待完成：顯示至少兩項餐點、運費、總金額與一個按鈕。</p></section>
+
+    <main class="container cart-page">
+      <section class="cart-intro" aria-labelledby="cart-title">
+        <p class="eyebrow">YOUR ORDER</p>
+        <h1 id="cart-title">購物車摘要</h1>
+        <p class="muted">確認餐點內容後，就可以送出你的模擬訂單。</p>
+      </section>
+
+      <section class="cart-layout" aria-label="訂單內容">
+        <div class="cart-items">
+          <div class="section-label"><h2>餐點</h2><span>共 2 項</span></div>
+          <article class="cart-item">
+            <div class="food-icon" aria-hidden="true">椒</div>
+            <div class="item-info"><h3>椒麻雞佐番茄甘露</h3><p>酥香雞腿、特製椒麻醬、新鮮番茄</p><span class="quantity">數量 1</span></div>
+            <strong class="item-price">NT$ 320</strong>
+          </article>
+          <article class="cart-item">
+            <div class="food-icon oyster" aria-hidden="true">蠔</div>
+            <div class="item-info"><h3>義式香炒烤生蠔</h3><p>鮮烤生蠔、蒜香橄欖油、義式香草</p><span class="quantity">數量 1</span></div>
+            <strong class="item-price">NT$ 280</strong>
+          </article>
+        </div>
+
+        <aside class="order-summary" aria-labelledby="summary-title">
+          <div><p class="summary-kicker">ORDER SUMMARY</p><h2 id="summary-title">金額明細</h2></div>
+          <dl class="price-list">
+            <div><dt>餐點小計</dt><dd>NT$ 600</dd></div>
+            <div><dt>運費</dt><dd>NT$ 60</dd></div>
+            <div class="total"><dt>總金額</dt><dd>NT$ 660</dd></div>
+          </dl>
+          <button class="checkout-button" type="button" id="mock-order-button">模擬下單 <span aria-hidden="true">→</span></button>
+          <p class="checkout-note">此為展示功能，不會產生實際付款或訂單。</p>
+          <p class="order-feedback" id="order-feedback" role="status" aria-live="polite"></p>
+        </aside>
+      </section>
     </main>
-    <footer>校園外送小組協作練習</footer><script src="../js/app.js"></script>
+
+    <footer>© 2026 好食快送・把喜歡的味道送到你身邊</footer>
+    <script>
+      const orderButton = document.querySelector("#mock-order-button");
+      const orderFeedback = document.querySelector("#order-feedback");
+      orderButton.addEventListener("click", () => {
+        orderButton.disabled = true;
+        orderButton.innerHTML = "已送出模擬訂單 <span aria-hidden=\"true\">✓</span>";
+        orderFeedback.textContent = "模擬下單成功！感謝你的訂購。";
+      });
+    </script>
   </body>
 </html>
